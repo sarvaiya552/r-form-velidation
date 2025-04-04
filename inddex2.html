@@ -1,0 +1,129 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h2>Registration Form</h2>
+
+    <form action="/index2.html" onsubmit="return checkData()">
+               <!-- name -->
+      <label>Name:</label><br />
+      <input type="text" id="name" name="name" /><br /><br />
+
+                 <!-- Email -->
+      <label>Email:</label><br />
+      <input type="text" id="email" name="email" /><br /><br />
+
+                 <!-- Password -->
+      <label>Password:</label><br />
+      <input type="password" id="password" name="password" /><br /><br />
+
+                <!-- Confarm Password -->
+      <label>Confirm Password:</label><br />
+      <input type="password" id="cpass" name="cpass" /><br /><br />
+
+                  <!-- Gender -->
+      <label>Gender:</label><br />
+      <input type="radio" id="male" name="gender" value="m" />
+      <label>Male</label><br />
+      <input type="radio" id="female" name="gender" value="f" />
+      <label>Female</label><br />
+      <input type="radio" id="other" name="gender" value="other" />
+        <label>Other</label><br /><br />
+
+      <!-- Hobbies -->
+      <label>Hobbies:</label><br />
+      <input type="checkbox" id="reading" name="hobbies" value="reading" />
+      <label>Reading</label><br />
+      <input type="checkbox" id="traveling" name="hobbies" value="traveling" />
+      <label>Traveling</label><br />
+      <input type="checkbox" id="sports" name="hobbies" value="sports" />
+      <label>Sports</label><br /><br />
+
+      <!-- City -->
+      <label>City:</label><br />
+      <select id="city" name="city">
+        <option value="N">Select a city</option>
+        <option value="M">Mumbai</option>
+        <option value="D">Delhi</option>
+        <option value="B">Bangalore</option>
+        <option value="C">Chennai</option>
+        <option value="K">Kolkata</option></select
+      ><br /><br />
+
+      <!-- Button Submit -->
+      <input type="submit" value="Submit" />
+    </form>
+    <script>
+      var gender = "";
+      var hobbyArr = [];
+
+      function checkData() {
+        let name = document.getElementById("name").value;
+        let email = document.getElementById("email").value;
+        let pass = document.getElementById("password").value;
+        let cpass = document.getElementById("cpass").value;
+        let genderObj = document.getElementsByName("gender");
+        let city = document.querySelector("#city").value;
+        let hobbyObj = document.getElementsByName("#hobbies");
+
+
+        for (const key in genderObj) {
+           if(genderObj[key].checkd){
+                gender = genderObj[key].value
+           }
+        }
+        for (const key in hobbyObj) {
+         if(hobbyObj[key].checkd){
+             var h =   hobbyArr.push(hobbyObj[key].value)
+         }
+        }
+
+        // Check Validaition
+
+        if (name == "" || email == "" || pass == "" || cpass == "") {
+          alert(`All field is required`);
+          return false;
+        } else if (!validateEmail(email)) {
+          alert(`Email is not valid`);
+          return false;
+        } else if (pass != cpass) {
+          alert(`Password and Confarm Password is not match`);
+
+          return false;
+        }
+        else if(gender == ""){
+            alert(`gender is required`);
+            return false;
+        }
+        else if (city == "N") {
+          alert(`Select a City`);
+          return false;
+
+        }
+        else if(h.length == 0){
+            alert(`Select a Hobby`);
+            return false;
+
+        } 
+        else {
+          alert("Ok");
+          return true;
+        }
+      }
+
+      // Email Validation function
+      const validateEmail = (email) => {
+        return String(email)
+          .toLowerCase()
+          .match(
+            /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+          );
+      };
+    </script>
+  </body>
+</html>
